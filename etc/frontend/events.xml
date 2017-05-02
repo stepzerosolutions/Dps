@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+<!--
+    <event name="checkout_submit_all_after">
+        <observer name="dps_onepage_save_order_after" instance="Stepzerosolutions\Dps\Observer\SalesOrderSaveAfterObserver" />
+    </event>
+
+    <event name="checkout_submit_before">
+        <observer name="dps_onepage_save_order_after" instance="Stepzerosolutions\Dps\Observer\CheckoutSubmitBeforeObserver" />
+    </event>
+	-->
+		
+    <event name="checkout_submit_all_after">
+        <observer name="dps_save_order_after_submit" instance="Stepzerosolutions\Dps\Observer\SaveOrderAfterSubmitObserver" />
+    </event>
+</config>

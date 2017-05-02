@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Stepzero.solutions. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="dps_pxpay" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>DPS PxPay</label>
+				
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="title" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                    <comment>Title to use</comment>
+                </field>
+				
+								
+                <field id="frontend_checkout" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Use in Front End</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+                <field id="backend_checkout" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Use in Back End</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+                <field id="pxpayurl" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Use</label>
+					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Dpsurls</source_model>
+                </field>
+
+                <field id="pxpayuserid" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>PxPay User id</label>
+                </field>
+
+                <field id="pxpaykey" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>PxPayKey</label>
+                </field>
+                <field id="paymentaction" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment Action</label>
+					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Paymentaction</source_model>
+                </field>
+				
+                <field id="unpaid_order_status" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Unpaid order status</label>
+					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Unpaidorderstatus</source_model>
+                </field>
+				
+                <field id="order_status" translate="label" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New order status</label>
+					<comment>Status after receiving a positive response from DPS</comment>
+					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Unpaidorderstatus</source_model>
+                </field>
+
+                <field id="cctypes" translate="label" type="multiselect" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Credit Card Types</label>
+					<source_model>Magento\Payment\Model\Source\Cctype</source_model>
+                </field>
+				
+				
+                <field id="pxpaydisplaylogos" translate="label" type="multiselect" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Logos</label>
+					<comment>Displayed during checkout</comment>
+					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Systemlogos</source_model>
+                </field>
+				
+				
+                <field id="emailstosend" translate="label" type="select" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Emails to Send on Order</label>
+					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Emailstosend</source_model>
+                </field>
+
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="24" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment from applicable countries</label>
+					<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+				
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment from Specific countries</label>
+					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+                <field id="min_order_total" translate="label" type="text" sortOrder="26" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Minimum Order Total</label>
+                </field>
+                <field id="max_order_total" translate="label" type="text" sortOrder="27" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Max Order Total</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="28" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order Total</label>
+                </field>
+                <field id="debug" translate="label" type="select" sortOrder="29" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Logging/Debug</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
