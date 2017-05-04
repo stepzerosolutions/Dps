@@ -2,23 +2,22 @@
     "name": "stepzerosolutions/dps",
     "description": "Stezero dps payment solutions",
     "require": {
-        "php": "~5.5.0|~5.6.0",
-        "magento/framework": "0.42.0-beta11",
-        "magento/magento-composer-installer": "*",
-		"stepzerosolutions/base":"0.0.1"
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+	"stepzerosolutions/base":"1.0.1"
     },
     "type": "magento2-module",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
     ],
-    "extra": {
-        "map": [
-            [
-                "*",
-                "Stepzerosolutions/Dps"
-            ]
-        ]
+    "minimum-stability":"stable",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Stepzerosolutions\\Dps\\": ""
+        }
     }
 }
