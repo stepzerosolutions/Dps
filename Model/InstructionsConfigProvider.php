@@ -1,7 +1,17 @@
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Model class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Model;
 
@@ -12,10 +22,19 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Asset\Repository;
 
-
+/**
+ * PxPay InstructionsConfigProvider
+ *
+ * @category Model
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
+ */
 class InstructionsConfigProvider implements ConfigProviderInterface
 {
-	/**
+    /**
      * @var Repository
      */
     protected $assetRepo;
@@ -29,15 +48,14 @@ class InstructionsConfigProvider implements ConfigProviderInterface
      * @var UrlInterface
      */
     protected $urlBuilder;
-	
-
+    
     /**
      * @var string[]
      */
     protected $methodCodes = [
         Common::METHOD_CODE
     ];
-
+    
     /**
      * @var \Magento\Payment\Model\Method\AbstractMethod[]
      */
@@ -49,9 +67,16 @@ class InstructionsConfigProvider implements ConfigProviderInterface
     protected $escaper;
 
     /**
-     * @param PaymentHelper $paymentHelper
-     * @param Escaper $escaper
-     */
+    * Construct
+    *
+    * @param Repository       $assetRepo     Repository
+    * @param RequestInterface $request       Request
+    * @param UrlInterface     $urlBuilder    Url
+    * @param PaymentHelper    $paymentHelper Payment
+    * @param Escaper          $escaper       Escaper
+    *
+    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+    */
     public function __construct(
         Repository $assetRepo,
         RequestInterface $request,
@@ -69,14 +94,17 @@ class InstructionsConfigProvider implements ConfigProviderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Load Configuration
+     *
+     * @return array
      */
     public function getConfig()
     {
         $config = [];
         foreach ($this->methodCodes as $code) {
             if ($this->methods[$code]->isAvailable()) {
-                $config['payment']['instructions'][$code] = $this->getInstructions($code);
+                $config['payment']['instructions'][$code] 
+                    = $this->getInstructions($code);
             }
         }
         return $config;
@@ -85,45 +113,70 @@ class InstructionsConfigProvider implements ConfigProviderInterface
     /**
      * Get instructions text from config
      *
-     * @param string $code
+     * @param string $code Code
+     *
      * @return string
      */
     protected function getInstructions($code)
     {
-		return $this->generateInstructions($code);
+        return $this->generateInstructions($code);
     }
-	
-	
-	public function generateInstructions($code){
-		$_logos = explode(",", $this->methods[$code]->getConfigData('pxpaydisplaylogos') );
-		$output = __('After clicking Place Order in the next step you will be redirected to the DPS Payment Express website.') ;
-		$output .= '<div class="dps-logos">';
-		$output .= '<img src="'. $this->getViewFileUrl( "Stepzerosolutions_Dps::images/dpspxlogo.png").'" alt="Dps Logo" />';
-		foreach($_logos as $_logo):
-			if ($_logo) :
-				$output .= '<img src="'. $this->getViewFileUrl( "Stepzerosolutions_Dps::images/".$_logo) .'" alt="" />';
-			endif;
-		endforeach;
-		$output .= '</div>';
-		return $output;
-	}
-	
+    
+    /**
+     * Generate instructions
+     *
+     * @param string $code Code
+     *
+     * @return string
+     */
+    public function generateInstructions($code)
+    {
+        $_logos = explode(
+            ",", 
+            $this->methods[$code]->getConfigData('pxpaydisplaylogos')
+        );
+        $output = __(
+            'After clicking Place Order in the next step you will be 
+            redirected to the DPS Payment Express website.'
+        );
+        $output .= '<div class="dps-logos">';
+        $output .= '<img src="'.
+            $this->getViewFileUrl(
+                "Stepzerosolutions_Dps::images/dpspxlogo.png"
+            ).'" alt="Dps Logo" />';
+        foreach($_logos as $_logo):
+            if ($_logo) :
+                $output .= '<img src="'. $this->getViewFileUrl(
+                    "Stepzerosolutions_Dps::images/".$_logo
+                ) .'" alt="" />';
+            endif;
+        endforeach;
+        $output .= '</div>';
+        return $output;
+    }
+    
     /**
      * Retrieve url of a view file
      *
-     * @param string $fileId
-     * @param array $params
+     * @param string $fileId FieldId
+     * @param array  $params Params
+     *
      * @return string[]
      */
     protected function getViewFileUrl($fileId, array $params = [])
     {
         try {
-            $params = array_merge(['_secure' => $this->request->isSecure()], $params);
+            $params = array_merge(
+                ['_secure' => $this->request->isSecure()],
+                $params
+            );
             return $this->assetRepo->getUrlWithParams($fileId, $params);
         } catch (LocalizedException $e) {
             $this->logger->critical($e);
-            return $this->urlBuilder->getUrl('', ['_direct' => 'core/index/notFound']);
+            return $this->urlBuilder->getUrl(
+                '',
+                ['_direct' => 'core/index/notFound']
+            );
         }
     }
-	
 }

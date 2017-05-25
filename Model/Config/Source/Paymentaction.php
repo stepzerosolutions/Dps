@@ -1,25 +1,45 @@
 <?php
 /**
- * Copyright © 2015 Stepzero.solutions adventure theme. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Source Model class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Model\Config\Source;
+
 /**
- * Payment actions source
+ * PxPay Paymentaction Class.
  *
+ * @category Model
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
  */
-  
 class Paymentaction
 implements \Magento\Framework\Option\ArrayInterface
 {
     /**
-     * @return array
+     * Options array
+     *
+     * @return $this
      */
     public function toOptionArray()
     {
-		return [
-			\Stepzerosolutions\Dps\Model\Common::ACTION_AUTHORIZE => 'Authorize Only',
-			\Stepzerosolutions\Dps\Model\Common::ACTION_COMPLETE => 'Purchase'
-		];			
+        return [
+            \Stepzerosolutions\Dps\Model\Common::ACTION_AUTHORIZE 
+            > 'Authorize Only',
+            \Stepzerosolutions\Dps\Model\Common::ACTION_COMPLETE 
+            => 'Purchase'
+        ];
     }
 }

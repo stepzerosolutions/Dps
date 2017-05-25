@@ -1,20 +1,33 @@
 <?php
 /**
- * Copyright © 2015 Stepzero.solutions adventure theme. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Model class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Model;
-/**
- * DPS PxPay Magento 2 Module
- *
- */
 
- 
+/**
+ * PxPay Common
+ *
+ * @category Model
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
+ */
 class Common
 {
-	const METHOD_CODE = 'dps_pxpay';
-	
-	
+    const METHOD_CODE = 'dps_pxpay';
     const ACTION_AUTHORIZE = 'Auth';
     const ACTION_COMPLETE = 'Complete';
     const ACTION_PURCHASE = 'Purchase';
@@ -31,8 +44,7 @@ class Common
     const LOGOFILE_AMEX = 'AmexLogo.png';
     const LOGOFILE_JCB = 'JCBLogo.png';
     const LOGOFILE_DINERS = 'DinersLogo.png';
-	
-
+    
     const STATUS_ERROR = 0;
     const STATUS_OK_INVOICE = 2;
     const STATUS_OK_DONT_INVOICE = 3;
@@ -44,23 +56,23 @@ class Common
 
     const PXPAY_URL = 'https://sec.paymentexpress.com/pxpay/pxaccess.aspx';
     const PXPAY20_URL = 'https://sec.paymentexpress.com/pxaccess/pxpay.aspx';
-	const PXPAY20_TEST_URL = 'https://uat.paymentexpress.com/pxaccess/pxpay.aspx';
-
+    const PXPAY20_TEST_URL = 'https://uat.paymentexpress.com/pxaccess/pxpay.aspx';
+    
     const PXPAY_URL_SUCCESS = 'dps/pxpay/success';
     const PXPAY_URL_FAIL = 'dps/pxpay/failure';
-
+    
     const DPS_LOG_FILENAME = 'dps_pxpay.log';
-	
-	
+    
     /**
      * System Configurations
      */
     const XML_CONFIG_ISACTIVE = 'payment/dps_pxpay/active';
-
+    
     const ORDER_STATUS_PENDING = 'pending';
     const ORDER_STATUS_PENDING_DPS = 'pending_dps';
     const ORDER_STATUS_PROCESSING_DPS_AUTH = 'processing_dps_auth';
     const ORDER_STATUS_PROCESSING_DPS_PAID = 'processing_dps_paid';
+    
     /**
      * Error Codes
      * Code =>  Description
@@ -69,18 +81,29 @@ class Common
         = array(
             '51' => 'Card with Insufficient Funds',
             '54' => 'Expired Card',
-            'IC' => 'Invalid Key or Username. Also check that if a TxnId is being supplied that it is unique.',
-            'ID' => 'Invalid transaction type. Esure that the transaction type is either Auth or Purchase.',
-            'IK' => 'Invalid UrlSuccess. Ensure that the URL being supplied does not contain a query string.',
-            'IL' => 'Invalid UrlFail. Ensure that the URL being supplied does not contain a query string.',
+            'IC' => 'Invalid Key or Username. 
+            Also check that if a TxnId is being supplied that it is unique.',
+            'ID' => 'Invalid transaction type. 
+            Esure that the transaction type is either Auth or Purchase.',
+            'IK' => 'Invalid UrlSuccess. 
+            Ensure that the URL being supplied does not contain a query string.',
+            'IL' => 'Invalid UrlFail. 
+            Ensure that the URL being supplied does not contain a query string.',
             'IM' => 'Invalid PxPayUserId.',
             'IN' => 'Blank PxPayUserId.',
-            'IP' => 'Invalid parameter. Ensure that only documented properties are being supplied.',
-            'IQ' => 'Invalid TxnType. Ensure that the transaction type being submitted is either "Auth" or "Purchase".',
-            'IT' => 'Invalid currency. Ensure that the CurrencyInput is correct and in the correct format e.g. "USD".',
-            'IU' => 'Invalid AmountInput. Ensure that the amount is in the correct format e.g. "20.00".',
+            'IP' => 'Invalid parameter. 
+            Ensure that only documented properties are being supplied.',
+            'IQ' => 'Invalid TxnType. 
+            Ensure that the transaction type being submitted 
+            is either "Auth" or "Purchase".',
+            'IT' => 'Invalid currency. 
+            Ensure that the CurrencyInput is correct and in 
+            the correct format e.g. "USD".',
+            'IU' => 'Invalid AmountInput. 
+            Ensure that the amount is in the correct format e.g. "20.00".',
             'NF' => 'Invalid Username.',
-            'NK' => 'Request not found. Check the key and the mcrypt library if in use.',
+            'NK' => 'Request not found. 
+            Check the key and the mcrypt library if in use.',
             'NL' => 'User not enabled. Contact DPS.',
             'NM' => 'User not enabled. Contact DPS.',
             'NN' => 'Invalid MAC.',
@@ -105,8 +128,8 @@ class Common
             'D3' => 'Invalid / missing Password',
             'D4' => 'Maximum number of logon attempts exceeded'
         );
-
-    protected $_supportedCurrencies
+    
+    private $_supportedCurrencies
         = array(
             'AUD', //Australian Dollar
             'BRL', //Brazil Real
@@ -151,9 +174,14 @@ class Common
             'USD', //United States Dollar
             'VUV' //Vanuatu Vatu
         );
-
-
-
+    
+    /**
+     * Get instructions text from config
+     *
+     * @param string $code Code
+     *
+     * @return string
+     */
     public function returnErrorExplanation($code)
     {
         $code = (string)$code;
@@ -163,13 +191,18 @@ class Common
             return "Failed with unknown error code " . $code;
         }
     }
-	
-	
-	public function getPxpayUrls(){
-		return [
-			self::PXPAY_URL => 'PxPay',
-			self::PXPAY20_URL => 'PxPay 2.0',
-			self::PXPAY20_TEST_URL => 'PxPay 2.0 Test'
-		];	
-	}
+
+    /**
+     * Get instructions text from config
+     *
+     * @return array
+     */
+    public function getPxpayUrls()
+    {
+        return [
+            self::PXPAY_URL => 'PxPay',
+            self::PXPAY20_URL => 'PxPay 2.0',
+            self::PXPAY20_TEST_URL => 'PxPay 2.0 Test'
+        ];
+    }
 }

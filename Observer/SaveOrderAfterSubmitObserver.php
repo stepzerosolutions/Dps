@@ -1,53 +1,79 @@
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Observer class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
-
 /**
- * DPS module observer
+ * SaveOrderAfterSubmitObserver Class.
+ *
+ * @category Observer
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
  */
 class SaveOrderAfterSubmitObserver implements ObserverInterface
 {
     /**
-     * Core registry
-     *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry;
-	protected $_logger;
+    private $_coreRegistry;
 
     /**
-     * Constructor
-     *
-     * @param \Magento\Framework\Registry $coreRegistry
-     */
+    * @var \Psr\Log\LoggerInterface
+    */
+    private $_logger;
+    
+    /**
+    * Constructor
+    *
+    * @param Registry        $coreRegistry Registry
+    * @param LoggerInterface $logger       Logger
+    *
+    * @return void
+    */
     public function __construct(
         \Magento\Framework\Registry $coreRegistry,
-		\Psr\Log\LoggerInterface $logger //log injection
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->_coreRegistry = $coreRegistry;
-		$this->_logger = $logger;
+        $this->_logger = $logger;
     }
-
+    
     /**
-     * Save order into registry to use it in the overloaded controller.
-     *
-     * @param EventObserver $observer
-     * @return $this
-     */
+    * Execute
+    *
+    * @param EventObserver $observer Observer
+    *
+    * @return void
+    */
     public function execute(EventObserver $observer)
     {
-        /* @var $order \Magento\Sales\Model\Order */
         $order = $this->_coreRegistry->registry('dps_order');
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();
-            if ($payment && in_array($payment->getMethod(), \Stepzerosolutions\Dps\Model\Common::METHOD_CODE)) {
+            if ($payment
+                && in_array(
+                    $payment->getMethod(),
+                    \Stepzerosolutions\Dps\Model\Common::METHOD_CODE
+                )
+            ) {
                 $result = $observer->getData('result')->getData();
                 if (empty($result['error'])) {
                     $result['redirect'] = false;

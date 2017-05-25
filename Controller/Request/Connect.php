@@ -1,32 +1,57 @@
 <?php
 /**
- * Copyright © 2015 Stepzero.solutions. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Controller class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Controller\Request;
 use Magento\Framework\Exception\RemoteServiceUnavailableException;
-
+/**
+ * PxPay Connection Class.
+ *
+ * @category Controller
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
+ */
 class Connect extends \Stepzerosolutions\Dps\Controller\Request
 {
-	
+    /**
+    * Execute
+    *
+    * @return void
+    */
     public function execute()
     {
         try {
-			if( $orderid = $this->checkoutSession->getLastOrderId() ){
-				// Make Curl Request
-				$this->_pxpayredirect->setOrder($orderid );
-				$this->_pxpayredirect->setDPSProcess();
-			}
+            if ($orderid = $this->checkoutSession->getLastOrderId()) {
+                $this->_pxpayredirect->setOrder($orderid);
+                $this->_pxpayredirect->setDPSProcess();
+            }
         } catch (RemoteServiceUnavailableException $e) {
             $this->logger->critical($e);
-            $this->getResponse()->setStatusHeader(503, '1.1', 'Service Unavailable')->sendResponse();
+            $this->getResponse()->setStatusHeader(
+                503, 
+                '1.1', 
+                'Service Unavailable'
+            )->sendResponse();
             /** @todo eliminate usage of exit statement */
             exit;
         } catch (\Exception $e) {
             $this->logger->critical($e);
             $this->getResponse()->setHttpResponseCode(500);
         }
-		die();
+        die();
     }
-
 }

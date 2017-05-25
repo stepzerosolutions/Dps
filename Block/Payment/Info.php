@@ -1,22 +1,37 @@
 <?php
 /**
- * Copyright © 2015 Stepzero.solutions adventure theme. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Block class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Block\Payment;
 
 /**
- * DPS PxPay Magento 2 Module
+ * Info Class.
  *
+ * @category Block
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
  */
-
 class Info extends Magento\Payment\Block\Info
 {
 
     /**
      * @var string
      */
-    protected $_template = 'Stepzerosolutions_Dps::info/pdf/default.phtml';
+    private $_template = 'Stepzerosolutions_Dps::info/pdf/default.phtml';
 
     /**
      * Retrieve info model
@@ -34,9 +49,10 @@ class Info extends Magento\Payment\Block\Info
         }
         return $info;
     }
-	
+    
     /**
      * Render as PDF
+     *
      * @return string
      */
     public function toPdf()

@@ -1,45 +1,64 @@
 <?php
 /**
- * Copyright © 2015 Stepzero.solutions. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Controller class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Controller;
 
-
 /**
- * Class Pxpay
+ * PxPay Class.
+ *
+ * @category Controller
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
  */
 abstract class Pxpay extends \Magento\Framework\App\Action\Action
 {
-	/**
-	 * @var \Magento\Framework\View\Result\PageFactory
-	 */
-	protected $resultPageFactory;
-	
-	protected $logger;
     /**
-     * @var \Stepzerosolutions\Dps\Model\Redirect
-     */
-    protected $_pxpayredirect;
-	protected $_test;
+    * @var \Magento\Framework\View\Result\PageFactory
+    */
+    protected $resultPageFactory;
+
     /**
-     * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Checkout\Model\Cart $cart
-     * @param \Psr\Log\LoggerInterface $logger
-     */
+    * @var \Psr\Log\LoggerInterface
+    */
+    protected $logger;
+    
+    /**
+    * @var \Stepzerosolutions\Dps\Model\Redirect
+    */
+    protected $pxpayredirect;
+    
+    /**
+    * Construct
+    *
+    * @param Context         $context           Context
+    * @param Redirect        $pxpayredirect     Page Factory
+    * @param PageFactory     $resultPageFactory Page Factory
+    * @param LoggerInterface $logger            Page Factory
+    */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-		\Stepzerosolutions\Dps\Model\Redirect $pxpayredirect,
+        \Stepzerosolutions\Dps\Model\Redirect $pxpayredirect,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-//		\Stepzerosolutions\Dps\Model\Test $test,
-		\Psr\Log\LoggerInterface $logger //log injection
+        \Psr\Log\LoggerInterface $logger
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
-		$this->logger = $logger;
-		$this->_pxpayredirect = $pxpayredirect;
-//		$this->_test = $test;
+        $this->logger = $logger;
+        $this->pxpayredirect = $pxpayredirect;
     }
-
 }

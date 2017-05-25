@@ -1,20 +1,35 @@
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Observer class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Block\Payment;
 
 /**
- * Block for Bank Transfer payment method form
+ * Info Class.
+ *
+ * @category Block
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
  */
 class Form extends \Magento\Payment\Block\Form
 {
     /**
-     * Bank transfer template
-     *
      * @var string
      */
-    protected $_template = 'form/dps.phtml';
+    private $_template = 'form/dps.phtml';
 
 }

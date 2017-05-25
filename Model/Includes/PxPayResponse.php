@@ -1,108 +1,227 @@
 <?php
 /**
- * Copyright © 2015 Stepzero.solutions adventure theme. All rights reserved.
- * See COPYING.txt for license details.
+ * Dps (http://stepzero.solutions/).
+ *
+ * Source Model class
+ *
+ * PHP version 7
+ *
+ * @category Module
+ * @package  Dps
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ *
+ * @link     http://stepzero.solutions
  */
 namespace Stepzerosolutions\Dps\Model\Includes;
+
+use Stepzerosolutions\Dps\Model\Includes\MifMessage;
 /**
- * DPS PxPay Magento 2 Module
- * Class for PxPay response messages.
+ * PxPay PxPayResponse Class.
+ *
+ * @category Model
+ *
+ * @package  Socialwall
+ * @author   Don Nuwinda <nuwinda@gmail.com>
+ * @license  GPL http://stepzero.solutions
+ * @link     http://stepzero.solutions
  */
-
- class PxPayResponse extends PxPayMessage
+class PxPayResponse extends PxPayMessage
 {
-	protected $Success;
-	protected $AuthCode;
-	protected $CardName;
-	protected $CardHolderName;	
-	protected $CardNumber;
-	protected $DateExpiry;
-	protected $ClientInfo;
-	protected $DpsTxnRef;
-  	protected $DpsBillingId;	
-	protected $AmountSettlement;
-	protected $CurrencySettlement;
-	protected $TxnMac;
-	protected $ResponseText;
-	protected $CurrencyInput;
-	protected $_mifmessage;
-	
-	public function __construct(
-		\Stepzerosolutions\Dps\Model\Includes\MifMessage $mifmessage
-	){
-		$this->_mifmessage = $mifmessage;
-	}
-	
-	public function prcessResponse($xml){
-		$this->_mifmessage->loadMifMessage($xml);		
-		$this->PxPayMessage();
+    protected $Success;
+    protected $AuthCode;
+    protected $CardName;
+    protected $CardHolderName;
+    protected $CardNumber;
+    protected $DateExpiry;
+    protected $ClientInfo;
+    protected $DpsTxnRef;
+    protected $DpsBillingId;
+    protected $AmountSettlement;
+    protected $CurrencySettlement;
+    protected $TxnMac;
+    protected $ResponseText;
+    protected $CurrencyInput;
+    private $_mifmessage;
 
-		$this->Success = $this->_mifmessage->get_element_text("Success");
-		$this->setTxnType($this->_mifmessage->get_element_text("TxnType"));	
-		$this->CurrencyInput = $this->_mifmessage->get_element_text("CurrencyInput");	
-		$this->setMerchantReference($this->_mifmessage->get_element_text("MerchantReference"));	
-		$this->setTxnData1($this->_mifmessage->get_element_text("TxnData1"));
-		$this->setTxnData2($this->_mifmessage->get_element_text("TxnData2"));
-		$this->setTxnData3($this->_mifmessage->get_element_text("TxnData3"));
-		$this->AuthCode = $this->_mifmessage->get_element_text("AuthCode");
-		$this->CardName = $this->_mifmessage->get_element_text("CardName");		
-		$this->CardHolderName = $this->_mifmessage->get_element_text("CardHolderName");	
-		$this->CardNumber = $this->_mifmessage->get_element_text("CardNumber");	
-		$this->DateExpiry = $this->_mifmessage->get_element_text("DateExpiry");	
-		$this->ClientInfo = $this->_mifmessage->get_element_text("ClientInfo");
-		$this->TxnId = $this->_mifmessage->get_element_text("TxnId");		
-		$this->setEmailAddress($this->_mifmessage->get_element_text("EmailAddress"));
-		$this->DpsTxnRef = $this->_mifmessage->get_element_text("DpsTxnRef");		
-		$this->BillingId = $this->_mifmessage->get_element_text("BillingId");
-		$this->DpsBillingId = $this->_mifmessage->get_element_text("DpsBillingId");
-		$this->AmountSettlement = $this->_mifmessage->get_element_text("AmountSettlement");
-		$this->CurrencySettlement = $this->_mifmessage->get_element_text("CurrencySettlement");
-		$this->TxnMac = $this->_mifmessage->get_element_text("TxnMac");
-		$this->ResponseText = $this->_mifmessage->get_element_text("ResponseText");
-		return $this;
-	}
-
-
-	public function getSuccess(){
-		return $this->Success;
-	}
-	public function getAuthCode(){
-		return $this->AuthCode;
-	}
-	public function getCardName(){
-		return $this->CardName;
-	}
-	public function getCardHolderName(){
-		return $this->CardHolderName;
-	}
-	public function getCardNumber(){
-		return $this->CardNumber;
-	}
-	public function getDateExpiry(){
-		return $this->DateExpiry;
-	}
-	public function getClientInfo(){
-		return $this->ClientInfo;
-	}
-	public function getDpsTxnRef(){
-		return $this->DpsTxnRef;
-	}
-	public function getDpsBillingId(){
-		return $this->DpsBillingId;
-	}
-	public function getAmountSettlement(){
-		return $this->AmountSettlement;
-	}	
-	public function getCurrencySettlement(){
-		$this->CurrencySettlement;
-	}
-	public function getTxnMac(){
-		return $this->TxnMac;
-	}
-	public function getResponseText(){
-		return $this->ResponseText;
-	}
-	public function getCurrencyInput(){
-		return $this->CurrencyInput;
-	}
+    /**
+    * Construct
+    *
+    * @param MifMessage $mifmessage Message
+    *
+    * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+    */
+    public function __construct(
+        MifMessage $mifmessage
+    ) {
+        $this->_mifmessage = $mifmessage;
+    }
+    
+    /**
+    * prcessResponse
+    *
+    * @param object $xml Xml data
+    *
+    * @return this
+    */
+    public function prcessResponse($xml)
+    {
+        $this->_mifmessage->loadMifMessage($xml);
+        $this->PxPayMessage();
+        $this->Success = $this->_mifmessage->getElementText("Success");
+        $this->setTxnType($this->_mifmessage->getElementText("TxnType"));
+        $this->CurrencyInput = $this->_mifmessage->getElementText("CurrencyInput");
+        $this->setMerchantReference(
+            $this->_mifmessage->getElementText("MerchantReference")
+        );
+        $this->setTxnData1($this->_mifmessage->getElementText("TxnData1"));
+        $this->setTxnData2($this->_mifmessage->getElementText("TxnData2"));
+        $this->setTxnData3($this->_mifmessage->getElementText("TxnData3"));
+        $this->AuthCode = $this->_mifmessage->getElementText("AuthCode");
+        $this->CardName = $this->_mifmessage->getElementText("CardName");
+        $this->CardHolderName = $this->_mifmessage->getElementText("CardHolderName");
+        $this->CardNumber = $this->_mifmessage->getElementText("CardNumber");
+        $this->DateExpiry = $this->_mifmessage->getElementText("DateExpiry");
+        $this->ClientInfo = $this->_mifmessage->getElementText("ClientInfo");
+        $this->TxnId = $this->_mifmessage->getElementText("TxnId");
+        $this->setEmailAddress($this->_mifmessage->getElementText("EmailAddress"));
+        $this->DpsTxnRef = $this->_mifmessage->getElementText("DpsTxnRef");
+        $this->BillingId = $this->_mifmessage->getElementText("BillingId");
+        $this->DpsBillingId = $this->_mifmessage->getElementText("DpsBillingId");
+        $this->AmountSettlement = $this->_mifmessage->getElementText(
+            "AmountSettlement"
+        );
+        $this->CurrencySettlement = $this->_mifmessage->getElementText(
+            "CurrencySettlement"
+        );
+        $this->TxnMac = $this->_mifmessage->getElementText("TxnMac");
+        $this->ResponseText = $this->_mifmessage->getElementText("ResponseText");
+        return $this;
+    }
+    /**
+    * getSuccess
+    *
+    * @return string
+    */
+    public function getSuccess()
+    {
+        return $this->Success;
+    }
+    /**
+    * getAuthCode
+    *
+    * @return string
+    */
+    public function getAuthCode()
+    {
+        return $this->AuthCode;
+    }
+    /**
+    * getCardName
+    *
+    * @return string
+    */
+    public function getCardName()
+    {
+        return $this->CardName;
+    }
+    /**
+    * getCardName
+    *
+    * @return string
+    */
+    public function getCardHolderName()
+    {
+        return $this->CardHolderName;
+    }
+    /**
+    * getCardNumber
+    *
+    * @return string
+    */
+    public function getCardNumber()
+    {
+        return $this->CardNumber;
+    }
+    /**
+    * getDateExpiry
+    *
+    * @return string
+    */
+    public function getDateExpiry()
+    {
+        return $this->DateExpiry;
+    }
+    /**
+    * getClientInfo
+    *
+    * @return string
+    */
+    public function getClientInfo()
+    {
+        return $this->ClientInfo;
+    }
+    /**
+    * getDpsTxnRef
+    *
+    * @return string
+    */
+    public function getDpsTxnRef()
+    {
+        return $this->DpsTxnRef;
+    }
+    /**
+    * getDpsBillingId
+    *
+    * @return string
+    */
+    public function getDpsBillingId()
+    {
+        return $this->DpsBillingId;
+    }
+    /**
+    * getAmountSettlement
+    *
+    * @return string
+    */
+    public function getAmountSettlement()
+    {
+        return $this->AmountSettlement;
+    }
+    /**
+    * getCurrencySettlement
+    *
+    * @return string
+    */
+    public function getCurrencySettlement()
+    {
+        $this->CurrencySettlement;
+    }
+    /**
+    * getTxnMac
+    *
+    * @return string
+    */
+    public function getTxnMac()
+    {
+        return $this->TxnMac;
+    }
+    /**
+    * getResponseText
+    *
+    * @return string
+    */
+    public function getResponseText()
+    {
+        return $this->ResponseText;
+    }
+    /**
+    * getCurrencyInput
+    *
+    * @return string
+    */
+    public function getCurrencyInput()
+    {
+        return $this->CurrencyInput;
+    }
 }
