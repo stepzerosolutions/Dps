@@ -25,7 +25,7 @@ namespace Stepzerosolutions\Dps\Block\Payment;
  * @license  GPL http://stepzero.solutions
  * @link     http://stepzero.solutions
  */
-class Info extends Magento\Payment\Block\Info
+class Info extends \Magento\Payment\Block\Info
 {
 
     /**
