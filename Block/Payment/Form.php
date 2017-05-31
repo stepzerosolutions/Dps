@@ -30,6 +30,6 @@ class Form extends \Magento\Payment\Block\Form
     /**
      * @var string
      */
-    private $_template = 'form/dps.phtml';
+    public $_template = 'form/dps.phtml';
 
 }
