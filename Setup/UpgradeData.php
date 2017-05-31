@@ -108,23 +108,6 @@ class UpgradeData implements UpgradeDataInterface
             );
             $setup->getConnection()->createTable($table);
         }
-        
-        if (version_compare($context->getVersion(), '0.0.7') < 0) {
-            $data = [];
-            $statuses = [
-                'pending_dps' => __('Pending Payment (DPS)'),
-                'processing_dps_auth' => __('Processing (DPS - Amount authorised)'),
-                'processing_dps_paid' => __('Processing (DPS - Amount paid)'),
-            ];
-            foreach ($statuses as $code => $info) {
-                $data[] = ['status' => $code, 'label' => $info];
-            }
-            $setup->getConnection()->insertArray(
-                $setup->getTable('sales_order_status'), 
-                ['status', 'label'], 
-                $data
-            );
-        }
         $setup->endSetup();
     }
 }
