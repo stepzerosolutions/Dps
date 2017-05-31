@@ -31,7 +31,7 @@ class Info extends Magento\Payment\Block\Info
     /**
      * @var string
      */
-    private $_template = 'Stepzerosolutions_Dps::info/pdf/default.phtml';
+    public $_template = 'Stepzerosolutions_Dps::info/pdf/default.phtml';
 
     /**
      * Retrieve info model
