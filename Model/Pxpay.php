@@ -29,7 +29,7 @@ use \Magento\Sales\Model\Order\Payment\Transaction\BuilderInterface;
  */
 class Pxpay extends \Magento\Payment\Model\Method\AbstractMethod
 {
-    private $_code;
+    public $_code;
     
     protected $logger;
     
@@ -43,53 +43,53 @@ class Pxpay extends \Magento\Payment\Model\Method\AbstractMethod
     *
     * @var bool
     */
-    private $_isGateway = true;
+    public $_isGateway = true;
     
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_canAuthorize = true;
+    public $_canAuthorize = true;
     
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_canCapture = true;
+    public $_canCapture = true;
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_canRefund = true;
+    public $_canRefund = true;
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_canRefundInvoicePartial = false;
+    public $_canRefundInvoicePartial = false;
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_canVoid = true;
+    public $_canVoid = true;
 
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_canFetchTransactionInfo = true;
+    public $_canFetchTransactionInfo = true;
 
     /**
     * Payment Method feature
     *
     * @var bool
     */
-    private $_isInitializeNeeded = true;
+    public $_isInitializeNeeded = true;
 
     /**
     * @var \Magento\Store\Model\StoreManagerInterface
@@ -123,7 +123,7 @@ class Pxpay extends \Magento\Payment\Model\Method\AbstractMethod
     */
     protected $transactionRepository;
     
-    private $_supportedCurrencyCodes = array('NZD');
+    public $_supportedCurrencyCodes = array('NZD');
     
     /**
     * Construct
