@@ -36,8 +36,8 @@ class Connect extends \Stepzerosolutions\Dps\Controller\Request
     {
         try {
             if ($orderid = $this->checkoutSession->getLastOrderId()) {
-                $this->_pxpayredirect->setOrder($orderid);
-                $this->_pxpayredirect->setDPSProcess();
+                $this->pxpayredirect->setOrder($orderid);
+                $this->pxpayredirect->setDPSProcess();
             }
         } catch (RemoteServiceUnavailableException $e) {
             $this->logger->critical($e);
