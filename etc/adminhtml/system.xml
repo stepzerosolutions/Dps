@@ -32,6 +32,10 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
 				
+                <field id="marchantid" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Merchant ID</label>
+                    <comment>Your DPS Merchant id</comment>
+                </field>
                 <field id="pxpayurl" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Use</label>
 					<source_model>Stepzerosolutions\Dps\Model\Config\Source\Dpsurls</source_model>
