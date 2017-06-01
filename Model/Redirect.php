@@ -106,6 +106,8 @@ class Redirect
     protected $invoiceServices;
     
     protected $customerNotified = false;
+	
+	protected $messageManager;
     
     /**
     * Construct
@@ -137,6 +139,7 @@ class Redirect
         \Magento\Sales\Model\Order\Email\Sender\OrderSender $orderSender,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Magento\Sales\Model\Service\InvoiceService $invoiceServices,
+		\Magento\Framework\Message\ManagerInterface $messageManager,
         \Psr\Log\LoggerInterface $logger //log injection
     ) {
         $this->logger = $logger;
@@ -152,6 +155,7 @@ class Redirect
         $this->orderSender = $orderSender;
         $this->invoiceSender = $invoiceSender;
         $this->invoiceServices = $invoiceServices;
+		$this->messageManager = $messageManager;
     }
 
     /**
@@ -203,11 +207,24 @@ class Redirect
                 $request_string = $this->_pxpaycurl->makeRequest(
                     $this->_pxpayrequest
                 );
-                $response = $this->_mifmessage->loadMifMessage($request_string);
-                $url = $this->_mifmessage->getElementText("URI");
-                $valid = $this->_mifmessage->getAttribute("valid");
-                header("Location: ".$url);
-                exit();
+				$response = $this->_mifmessage->loadMifMessage($request_string);
+				if(!$response){
+					$this->messageManager->addError(
+						"Something went wrong. We are working on it."
+					);
+					$this->logger->addDebug($request_string);
+					header(
+						"Location: ".
+						$this->_urlBuilder->getUrl(
+						'checkout'
+						)
+					);
+				} else {
+					$url = $this->_mifmessage->getElementText("URI");
+					$valid = $this->_mifmessage->getAttribute("valid");
+                	header("Location: ".$url);
+				}
+				exit();
             }
         }
         $this->logger->critical("Set order ID to process the payment");
