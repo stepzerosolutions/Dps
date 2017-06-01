@@ -119,6 +119,7 @@ class PxPayCurl
     */
     public function submitXml($inputXml)
     {
+        $outputXml='';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->PxPay_Url);
         curl_setopt($ch, CURLOPT_POST, 1);
