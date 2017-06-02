@@ -208,6 +208,7 @@ class Redirect
                     $this->_pxpayrequest
                 );
 				$response = $this->_mifmessage->loadMifMessage($request_string);
+				$this->logger->addDebug($response);
 				if(!$response){
 					$this->messageManager->addError(
 						"Something went wrong. We are working on it."
