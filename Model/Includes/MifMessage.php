@@ -48,7 +48,9 @@ class MifMessage
             $this->xml_ = $xml;
             $this->xml_value_ = $value;
             $this->xml_index_ = $index;
+            return true;
         }
+        return false;
     }
     
     /** 
