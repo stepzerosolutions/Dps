@@ -40,12 +40,12 @@ class Redirect
     /**
     * @var \Magento\Sales\Model\OrderFactory
     */
-    private $_order;
+    public $_order;
     
     /**
     * @var \Magento\Sales\Model\OrderFactory
     */
-    private $_orderFactory;
+    public $_orderFactory;
     
     /**
     * @var \Magento\Sales\Api\TransactionRepositoryInterface
@@ -55,35 +55,35 @@ class Redirect
     /**
     * @var \Stepzerosolutions\Dps\Model\Includes\PxPayRequest
     */
-    private $_pxpayrequest;
+    public $_pxpayrequest;
     
     /**
     * @var \Stepzerosolutions\Dps\Model\Includes\PxPayCurl
     */
-    private $_pxpaycurl;
+    public $_pxpaycurl;
     
     /**
     * @var \Magento\Framework\UrlInterface
     */
-    private $_urlBuilder;
+    public $_urlBuilder;
     
     /**
     * @var \Stepzerosolutions\Dps\Model\Includes\MifMessage
     */
-    private $_mifmessage;
+    public $_mifmessage;
     
     /**
     * @var  \Magento\Framework\App\Config\ScopeConfigInterface
     */
-    private $_scopeConfig;
+    public $_scopeConfig;
     
     /**
     * @var StoreManagerInterface $storeManager
     */
-    private $_storeManager;
+    public $_storeManager;
     
     
-    private $_captureData;
+    public $_captureData;
     
     /**
     * @var OrderSender
@@ -305,7 +305,7 @@ class Redirect
      *
      * @return void
      */
-    private function _registerFaliureCaption()
+    public function _registerFaliureCaption()
     {
         $this->_order->setStatus(Common::ORDER_STATUS_PENDING_DPS);
         if (!$this->_order->getEmailSent()) {
@@ -328,7 +328,7 @@ class Redirect
      *
      * @return void
      */
-    private function _registerCaption()
+    public function _registerCaption()
     {
         $payment = $this->_order->getPayment();
         $payment->setTransactionId(
@@ -440,7 +440,7 @@ class Redirect
      *
      * @return Invoice
      */
-    private function _invoice()
+    public function _invoice()
     {
         $invoice = $this->_order->prepareInvoice();
         $invoice->register();
